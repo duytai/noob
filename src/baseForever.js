@@ -19,6 +19,8 @@ class BaseForever {
     this.DEPLOY_SCRIPT = path.join(__dirname, '../scripts/deploy.sh')
     this.STOP_SCRIPT = path.join(__dirname, '../scripts/stop.sh')
     this.START_SCRIPT = path.join(__dirname, '../scripts/start.sh')
+    this.STATUS_SCRIPT = path.join(__dirname, '../scripts/status.sh')
+    this.LOGS_SCRIPT = path.join(__dirname, '../scripts/logs.sh')
   }
 
   runScriptInServer(host, script, env = {}) {
