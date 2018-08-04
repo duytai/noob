@@ -4,6 +4,52 @@ const shell = require('shelljs')
 const BaseForever = require('./baseForever')
 
 class Forever extends BaseForever {
+  start(name) {
+    const { name: appName } = this.getApp() 
+    switch (name) {
+      case 'all': {
+        const workers = this.allWorkers()
+        workers.forEach(({ host, instances }) => {
+          this.runScriptInServer(host, this.START_SCRIPT, {
+            APP_NAME: appName,
+            INSTANCES: instances,
+          })
+        })
+        break
+      }
+      default: {
+        const { host, instances } = this.workerByName(name)
+        this.runScriptInServer(host, this.START_SCRIPT, {
+          APP_NAME: appName,
+          INSTANCES: instances,
+        })
+      }
+    }
+  }
+
+  stop(name) {
+    const { name: appName } = this.getApp() 
+    switch (name) {
+      case 'all': {
+        const workers = this.allWorkers()
+        workers.forEach(({ host, instances }) => {
+          this.runScriptInServer(host, this.STOP_SCRIPT, {
+            APP_NAME: appName,
+            INSTANCES: instances,
+          })
+        })
+        break
+      }
+      default: {
+        const { host, instances } = this.workerByName(name)
+        this.runScriptInServer(host, this.STOP_SCRIPT, {
+          APP_NAME: appName,
+          INSTANCES: instances,
+        })
+      }
+    }
+  }
+
   deploy(name) {
     const app = this.getApp()
     const appEnv = this.getEnv()

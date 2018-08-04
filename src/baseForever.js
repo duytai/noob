@@ -17,6 +17,8 @@ class BaseForever {
     this.env = config.env || {}
     this.SETUP_SCRIPT = path.join(__dirname, '../scripts/setup.sh')
     this.DEPLOY_SCRIPT = path.join(__dirname, '../scripts/deploy.sh')
+    this.STOP_SCRIPT = path.join(__dirname, '../scripts/stop.sh')
+    this.START_SCRIPT = path.join(__dirname, '../scripts/start.sh')
   }
 
   runScriptInServer(host, script, env = {}) {
