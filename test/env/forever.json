@@ -2,12 +2,15 @@
   "workers": {
     "one": {
       "host": "taind@35.237.193.97",
-      "instances": 10
+      "instances": 2,
+      "env": {
+        "HELLO": "WORLD"
+      }
     }
   },
   "app": {
-    "name": "Fb",
-    "path": ""
+    "name": "bot",
+    "path": "/Users/macbookpro/Tests/worker"
   },
   "env": {
     "redisURL": ""

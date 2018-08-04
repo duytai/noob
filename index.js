@@ -11,6 +11,7 @@ yargs
       describe: 'name of worker'
     })
   }, (argv) => {
+    forver.deploy(argv.name)
   })
   .command('setup [name]', 'Setup worker enviroment', (yargs) => {
     yargs.positional('name', {

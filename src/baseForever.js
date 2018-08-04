@@ -13,12 +13,19 @@ class BaseForever {
     if (!fs.existsSync(configPath)) throw new Error('No forever.json file')
     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
     this.workers = config.workers
+    this.app = config.app
+    this.env = config.env || {}
     this.SETUP_SCRIPT = path.join(__dirname, '../scripts/setup.sh')
+    this.DEPLOY_SCRIPT = path.join(__dirname, '../scripts/deploy.sh')
   }
 
-  runScriptInServer(host, script) {
+  runScriptInServer(host, script, env = {}) {
     console.log(`✓ Host ${host}`)
-    shell.exec(`ssh ${host} "bash -s" < ${script}`)
+    const envStr = Object.keys(env).reduce((r, n) => {
+      r += `${n}="${env[n]}" `
+      return r
+    }, '')
+    shell.exec(`ssh ${host} ${envStr} "bash -s" < ${script}`)
     console.log('\n')
   }
 
@@ -30,6 +37,14 @@ class BaseForever {
     const worker = this.workers[name]
     if (!worker) throw new Error(`No worker name ${name}`)
     return worker
+  }
+
+  getEnv() {
+    return this.env
+  }
+
+  getApp() {
+    return this.app 
   }
 }
 
