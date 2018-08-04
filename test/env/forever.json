@@ -1,0 +1,15 @@
+{
+  "workers": {
+    "one": {
+      "host": "taind@35.237.193.97",
+      "instances": 10
+    }
+  },
+  "app": {
+    "name": "Fb",
+    "path": ""
+  },
+  "env": {
+    "redisURL": ""
+  }
+}
