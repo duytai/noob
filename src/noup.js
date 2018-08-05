@@ -144,7 +144,7 @@ class Noup extends BaseNoup {
           shell.exec(`scp ${appTarPath} ${host}:~`)
           this.runScriptInServer({
             host,
-            scrip: this.DEPLOY_SCRIPT,
+            script: this.DEPLOY_SCRIPT,
             env: {
               ...Object.assign({}, appEnv, env),
               TAR_FILE: `${appName}.tar.gz`,
@@ -161,7 +161,7 @@ class Noup extends BaseNoup {
         shell.exec(`scp ${appTarPath} ${host}:~`)
         this.runScriptInServer({
           host,
-          scrip: this.DEPLOY_SCRIPT,
+          script: this.DEPLOY_SCRIPT,
           env: {
             ...Object.assign({}, appEnv, env),
             TAR_FILE: `${appName}.tar.gz`,

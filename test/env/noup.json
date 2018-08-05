@@ -1,7 +1,7 @@
 {
   "workers": {
     "one": {
-      "host": "<username>@<ip>",
+      "host": "taind@35.237.193.97",
       "instances": 2,
       "env": {
         "MONGO_URL": ""

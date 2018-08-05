@@ -6,12 +6,15 @@ describe('# Tool', () => {
     const envPath = path.join(__dirname, './env')
     shell.cd(envPath)
   })
-
+  it('# deploy', () => {
+    shell.exec('node ../../index.js deploy')
+    //shell.exec('node ../../index.js deploy one')
+  })
+  return
   it('# init', () => {
     shell.exec('node ../../index.js init')
   })
 
-  return
   it('# status', () => {
     shell.exec('node ../../index.js status')
     shell.exec('node ../../index.js status one')
@@ -37,8 +40,4 @@ describe('# Tool', () => {
     shell.exec('node ../../index.js stop one')
   })  
 
-  it('# deploy', () => {
-    shell.exec('node ../../index.js deploy')
-    shell.exec('node ../../index.js deploy one')
-  })
 })
