@@ -35,7 +35,8 @@ it will create `noup.json` file in your project folder
   },
   "app": {
     "name": "bot",
-    "path": "/Users/macbookpro/Tests/worker"
+    "path": "/Users/macbookpro/Tests/worker",
+    "commit": ""
   },
   "env": {
     "REDIS_URL": ""
