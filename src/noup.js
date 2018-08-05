@@ -120,7 +120,7 @@ class Noup extends BaseNoup {
   deploy(name) {
     const app = this.getApp()
     const appEnv = this.getEnv()
-    const { name: appName, path: appPath } = app
+    const { name: appName, path: appPath, commit: appCommit } = app
     const appGitPath = path.join(appPath, '.git')
     if (!fs.existsSync(appPath)) {
       console.log(`🐛 No path ${appPath}`.red)
@@ -141,6 +141,11 @@ class Noup extends BaseNoup {
       this.runCommand(`rm -rf ${copyOfAppPath}`) 
     }
     this.runCommand(`git clone ${appPath} ${copyOfAppPath}`)
+    this.runCommand(`cd ${copyOfAppPath}`)
+    this.runCommand(`git checkout ${appCommit}`)
+    this.runCommand(`cd ${pwd}`)
+    console.log(appCommit)
+    process.exit()
     this.runCommand(`rm -rf ${copyOfAppGitPath}`)
     this.runCommand(`tar -zcvf ${appTarPath} ${appName}`)
     switch (name) {

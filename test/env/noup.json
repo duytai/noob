@@ -10,7 +10,8 @@
   },
   "app": {
     "name": "bot",
-    "path": "/Users/macbookpro/Tests/worker"
+    "path": "/Users/macbookpro/Tests/worker",
+    "commit": "35d35e06a6a32bb6a157ed0342b7858691527cf"
   },
   "env": {
     "REDIS_URL": ""
