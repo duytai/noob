@@ -7,11 +7,16 @@ describe('# Tool', () => {
     shell.cd(envPath)
   })
 
+  it('# init', () => {
+    shell.exec('node ../../index.js init')
+  })
+
+  return
   it('# status', () => {
     shell.exec('node ../../index.js status')
     shell.exec('node ../../index.js status one')
   })
-  return
+
   it('# setup', () => {
     shell.exec('node ../../index.js setup')
     shell.exec('node ../../index.js setup one')
