@@ -129,19 +129,19 @@ class Noup extends BaseNoup {
     const appTarPath = path.join(pwd, `${appName}.tar.gz`)
     const copyOfAppGitPath = path.join(copyOfAppPath, '.git')
     if (fs.existsSync(appTarPath)) {
-      shell.exec(`rm -rf ${appTarPath}`)
+      this.runCommand(`rm -rf ${appTarPath}`)
     }
     if (fs.existsSync(copyOfAppPath)) {
-      shell.exec(`rm -rf ${copyOfAppPath}`) 
+      this.runCommand(`rm -rf ${copyOfAppPath}`) 
     }
-    shell.exec(`git clone ${appPath} ${copyOfAppPath} &> /dev/null`)
-    shell.exec(`rm -rf ${copyOfAppGitPath}`)
-    shell.exec(`tar -zcvf ${appTarPath} ${appName} &> /dev/null`)
+    this.runCommand(`git clone ${appPath} ${copyOfAppPath}`)
+    this.runCommand(`rm -rf ${copyOfAppGitPath}`)
+    this.runCommand(`tar -zcvf ${appTarPath} ${appName}`)
     switch (name) {
       case 'all': {
         const workers = this.allWorkers()
         workers.forEach(({ host, env = {}, instances }) => {
-          shell.exec(`scp ${appTarPath} ${host}:~`)
+          this.runCommand(`scp ${appTarPath} ${host}:~`)
           this.runScriptInServer({
             host,
             script: this.DEPLOY_SCRIPT,
@@ -158,7 +158,7 @@ class Noup extends BaseNoup {
       }
       default: {
         const { host, instances, env } = this.workerByName(name)
-        shell.exec(`scp ${appTarPath} ${host}:~`)
+        this.runCommand(`scp ${appTarPath} ${host}:~`)
         this.runScriptInServer({
           host,
           script: this.DEPLOY_SCRIPT,
@@ -172,8 +172,8 @@ class Noup extends BaseNoup {
         })
       }
     }
-    shell.exec(`rm -rf ${copyOfAppPath}`)
-    shell.exec(`rm -rf ${appTarPath}`)
+    this.runCommand(`rm -rf ${copyOfAppPath}`)
+    this.runCommand(`rm -rf ${appTarPath}`)
   }
 
   setup(name) {

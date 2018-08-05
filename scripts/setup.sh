@@ -1,3 +1,10 @@
+run_with_logs() {
+  if [ $VERBOSE = true ] ; then
+    eval $1
+  else
+    eval "$1 &> /dev/null"
+  fi
+}
 ## INSTALL NVM
 export LC_ALL=C
 NVM_ENV_FILE="$HOME/.nvm/nvm.sh"
@@ -10,9 +17,9 @@ echo "✓ nvm $(nvm --version)"
 
 ## INSTALL NODE
 if [ -z $NODE_VERSION ] ; then
-  nvm install node &> /dev/null
+  run_with_logs "nvm install node"
 else 
-  nvm install $NODE_VERSION &> /dev/null
+  run_with_logs "nvm install $NODE_VERSION"
 fi 
 echo "✓ node $(node --version)"
 
@@ -27,6 +34,6 @@ echo "✓ pm2 $(pm2 --version)"
 ## INSTALL BUILD
 HAS_MAKE=$(command -v make)
 if [ -z $HAS_MAKE ] ; then
-  sudo apt-get install build-essential -y &> /dev/null
+  run_with_logs "sudo apt-get install build-essential -y"
 fi
 echo "✓ complete"

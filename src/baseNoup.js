@@ -7,6 +7,7 @@ const path = require('path')
 const fs = require('fs')
 const Q = require('q')
 
+const { VERBOSE = false } = process.env
 class BaseNoup {
   constructor() {
     const pwd = shell.pwd().toString()
@@ -24,9 +25,15 @@ class BaseNoup {
     this.STATUS_SCRIPT = path.join(__dirname, '../scripts/status.sh')
     this.LOGS_SCRIPT = path.join(__dirname, '../scripts/logs.sh')
   }
-  
+
+  runCommand(command) {
+    const extraCmd = VERBOSE === 'true' ? '' : '&> /dev/null'
+    shell.exec(`${command} ${extraCmd}`)
+  }
+
   runScriptInServer({ host, script, env = {}, async = false }) {
     console.log(`✓ Host ${host}`)
+    env.VERBOSE = VERBOSE
     const envStr = Object.keys(env).reduce((r, n) => {
       r += `${n}="${env[n]}" `
       return r
