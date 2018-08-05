@@ -12,6 +12,11 @@ describe('# Tool', () => {
     shell.exec('node ../../index.js status one')
   })
   return
+  it('# setup', () => {
+    shell.exec('node ../../index.js setup')
+    shell.exec('node ../../index.js setup one')
+  })
+
   it('# logs', () => {
     shell.exec('node ../../index.js logs one')
     shell.exec('node ../../index.js logs one 1')
@@ -31,10 +36,4 @@ describe('# Tool', () => {
     shell.exec('node ../../index.js deploy')
     shell.exec('node ../../index.js deploy one')
   })
-
-  it('# setup', () => {
-    shell.exec('node ../../index.js setup')
-    shell.exec('node ../../index.js setup one')
-  })
-
 })

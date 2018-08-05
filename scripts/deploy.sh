@@ -10,6 +10,9 @@ echo "✓ extract"
 tar -C $APPS_DIR -xf $TAR_FILE
 rm $TAR_FILE
 source $NVM_ENV_FILE
+if [ ! -z $NODE_VERSION ] ; then
+  nvm use $NODE_VERSION &> /dev/null
+fi 
 cd $APP_DIR
 echo "✓ install dependencies"
 npm install &> /dev/null

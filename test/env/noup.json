@@ -4,7 +4,7 @@
       "host": "taind@35.237.193.97",
       "instances": 2,
       "env": {
-        "HELLO": "WORLD"
+        "MONGO_URL": ""
       }
     }
   },
@@ -13,6 +13,7 @@
     "path": "/Users/macbookpro/Tests/worker"
   },
   "env": {
-    "redisURL": ""
-  }
+    "REDIS_URL": ""
+  },
+  "node": "v10.5.0"
 }

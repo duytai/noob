@@ -16,6 +16,7 @@ class BaseNoup {
     this.workers = config.workers
     this.app = config.app
     this.env = config.env || {}
+    this.node = config.node || ''
     this.SETUP_SCRIPT = path.join(__dirname, '../scripts/setup.sh')
     this.DEPLOY_SCRIPT = path.join(__dirname, '../scripts/deploy.sh')
     this.STOP_SCRIPT = path.join(__dirname, '../scripts/stop.sh')
@@ -49,6 +50,10 @@ class BaseNoup {
 
   getApp() {
     return this.app 
+  }
+
+  getNodeVersion() {
+    return this.node
   }
 }
 

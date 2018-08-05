@@ -9,11 +9,11 @@ source $NVM_ENV_FILE
 echo "✓ nvm $(nvm --version)"
 
 ## INSTALL NODE
-HAS_NODE=$(command -v node)
-if [ -z $HAS_NODE ] ; then
-  echo "✓ install NodeJS"
-  nvm install node
-fi
+if [ -z $NODE_VERSION ] ; then
+  nvm install node &> /dev/null
+else 
+  nvm install $NODE_VERSION &> /dev/null
+fi 
 echo "✓ node $(node --version)"
 
 ## INSTALL PM2

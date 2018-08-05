@@ -13,6 +13,7 @@ class Noup extends BaseNoup {
       env: {
         APP_NAME: appName,
         APP_PID: pid,
+        NODE_VERSION: this.getNodeVersion(),
       },
     })
   }
@@ -29,6 +30,7 @@ class Noup extends BaseNoup {
             env: {
               APP_NAME: appName,
               INSTANCES: instances,
+              NODE_VERSION: this.getNodeVersion(),
             },
           })
         })
@@ -42,6 +44,7 @@ class Noup extends BaseNoup {
           env: {
             APP_NAME: appName,
             INSTANCES: instances,
+            NODE_VERSION: this.getNodeVersion(),
           },
         })
       }
@@ -60,6 +63,7 @@ class Noup extends BaseNoup {
             env: {
               APP_NAME: appName,
               INSTANCES: instances,
+              NODE_VERSION: this.getNodeVersion(),
             },
           })
         })
@@ -73,6 +77,7 @@ class Noup extends BaseNoup {
           env: {
             APP_NAME: appName,
             INSTANCES: instances,
+            NODE_VERSION: this.getNodeVersion(),
           },
         })
       }
@@ -91,6 +96,7 @@ class Noup extends BaseNoup {
             env: {
               APP_NAME: appName,
               INSTANCES: instances,
+              NODE_VERSION: this.getNodeVersion(),
             },
           })
         })
@@ -104,6 +110,7 @@ class Noup extends BaseNoup {
           env: {
             APP_NAME: appName,
             INSTANCES: instances,
+            NODE_VERSION: this.getNodeVersion(),
           },
         })
       }
@@ -143,6 +150,7 @@ class Noup extends BaseNoup {
               TAR_FILE: `${appName}.tar.gz`,
               APP_NAME: appName,
               INSTANCES: instances,
+              NODE_VERSION: this.getNodeVersion(),
             },
           })
         })
@@ -159,6 +167,7 @@ class Noup extends BaseNoup {
             TAR_FILE: `${appName}.tar.gz`,
             APP_NAME: appName,
             INSTANCES: instances,
+            NODE_VERSION: this.getNodeVersion(),
           },
         })
       }
@@ -175,6 +184,9 @@ class Noup extends BaseNoup {
           this.runScriptInServer({
             host,
             script: this.SETUP_SCRIPT,
+            env: {
+              NODE_VERSION: this.getNodeVersion(),
+            }
           })
         })
         break
@@ -184,6 +196,9 @@ class Noup extends BaseNoup {
         this.runScriptInServer({
           host,
           script: this.SETUP_SCRIPT,
+          env: {
+            NODE_VERSION: this.getNodeVersion(),
+          }
         })
       }
     }
