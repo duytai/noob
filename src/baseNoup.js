@@ -6,13 +6,17 @@ const shell = require('shelljs')
 const path = require('path')
 const fs = require('fs')
 const Q = require('q')
+require('colors')
 
 const { VERBOSE = false } = process.env
 class BaseNoup {
   constructor() {
     const pwd = shell.pwd().toString()
     const configPath = path.join(pwd, 'noup.json')
-    if (!fs.existsSync(configPath)) throw new Error('No noup.json file')
+    if (!fs.existsSync(configPath)) {
+      console.log('🐛 No noup.json file'.red)
+      process.exit()
+    } 
     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
     this.workers = config.workers
     this.app = config.app
@@ -47,7 +51,10 @@ class BaseNoup {
 
   workerByName(name) {
     const worker = this.workers[name]
-    if (!worker) throw new Error(`No worker name ${name}`)
+    if (!worker) {
+      console.log(`🐛 No worker name ${name}`.red)
+      process.exit()
+    }
     return worker
   }
 

@@ -122,8 +122,14 @@ class Noup extends BaseNoup {
     const appEnv = this.getEnv()
     const { name: appName, path: appPath } = app
     const appGitPath = path.join(appPath, '.git')
-    if (!fs.existsSync(appPath)) throw new Error(`No path ${appPath}`)
-    if (!fs.existsSync(appGitPath)) throw new Error(`Must be git project ${appPath}`)
+    if (!fs.existsSync(appPath)) {
+      console.log(`🐛 No path ${appPath}`.red)
+      process.exit()
+    }
+    if (!fs.existsSync(appGitPath)) {
+      console.log(`🐛 Must be git project ${appPath}`.red)
+      process.exit()
+    }
     const pwd = shell.pwd().toString()
     const copyOfAppPath = path.join(pwd, appName)
     const appTarPath = path.join(pwd, `${appName}.tar.gz`)

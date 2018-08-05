@@ -8,7 +8,8 @@ class NoNoup {
     const pwd = shell.pwd().toString()
     const curNoupFile = path.join(pwd, 'noup.json')
     if (fs.existsSync(curNoupFile)) {
-      throw new Error('Noup file exists')
+      console.log('🐛 noup.jon exists'.red)
+      process.exit()
     }
     shell.exec(`cp ${samplePath} ${pwd}`)
   }
