@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const shell = require('shelljs')
-const BaseForever = require('./baseForever')
+const BaseNoup = require('./baseNoup')
 
-class Forever extends BaseForever {
+class Noup extends BaseNoup {
   logs(name, pid) {
     const { name: appName } = this.getApp() 
     const { host } = this.workerByName(name)
@@ -190,4 +190,4 @@ class Forever extends BaseForever {
   }
 }
 
-module.exports = Forever
+module.exports = Noup 

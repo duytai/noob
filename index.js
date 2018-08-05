@@ -1,7 +1,7 @@
 const yargs = require('yargs')
-const { Forever } = require('./src')
+const { Noup } = require('./src')
 
-const forver = new Forever()
+const noup = new Noup()
 yargs
   .usage('$0 <cmd> [args]')
   .command('logs <name> [pid]', 'Show worker logs', (yargs) => {
@@ -15,7 +15,7 @@ yargs
       describe: 'name of worker'
     })
   }, ({ name, pid }) => {
-    forver.logs(name, pid)
+    noup.logs(name, pid)
   })
   .command('status [name]', 'Show worker status', (yargs) => {
     yargs.positional('name', {
@@ -24,7 +24,7 @@ yargs
       describe: 'name of worker'
     })
   }, (argv) => {
-    forver.status(argv.name)
+    noup.status(argv.name)
   })
   .command('start [name]', 'Start worker', (yargs) => {
     yargs.positional('name', {
@@ -33,7 +33,7 @@ yargs
       describe: 'name of worker'
     })
   }, (argv) => {
-    forver.start(argv.name)
+    noup.start(argv.name)
   })
   .command('stop [name]', 'Stop worker', (yargs) => {
     yargs.positional('name', {
@@ -42,7 +42,7 @@ yargs
       describe: 'name of worker'
     })
   }, (argv) => {
-    forver.stop(argv.name)
+    noup.stop(argv.name)
   })
   .command('deploy [name]', 'Deploy workers', (yargs) => {
     yargs.positional('name', {
@@ -51,7 +51,7 @@ yargs
       describe: 'name of worker'
     })
   }, (argv) => {
-    forver.deploy(argv.name)
+    noup.deploy(argv.name)
   })
   .command('setup [name]', 'Setup worker enviroment', (yargs) => {
     yargs.positional('name', {
@@ -60,7 +60,7 @@ yargs
       describe: 'name of worker'
     })
   }, (argv) => {
-    forver.setup(argv.name)
+    noup.setup(argv.name)
   })
   .help()
   .argv

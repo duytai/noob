@@ -1,16 +1,17 @@
 /* 
- * all commands require forever.json file
+ * all commands require noup.json file
  * this class verify and parse
  */
 const shell = require('shelljs')
 const path = require('path')
 const fs = require('fs')
+const Q = require('q')
 
-class BaseForever {
+class BaseNoup {
   constructor() {
     const pwd = shell.pwd().toString()
-    const configPath = path.join(pwd, 'forever.json')
-    if (!fs.existsSync(configPath)) throw new Error('No forever.json file')
+    const configPath = path.join(pwd, 'noup.json')
+    if (!fs.existsSync(configPath)) throw new Error('No noup.json file')
     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
     this.workers = config.workers
     this.app = config.app
@@ -23,14 +24,13 @@ class BaseForever {
     this.LOGS_SCRIPT = path.join(__dirname, '../scripts/logs.sh')
   }
   
-  runScriptInServer({ host, script, env = {} }) {
+  runScriptInServer({ host, script, env = {}, async = false }) {
     console.log(`✓ Host ${host}`)
     const envStr = Object.keys(env).reduce((r, n) => {
       r += `${n}="${env[n]}" `
       return r
     }, '')
-    shell.exec(`ssh ${host} ${envStr} "bash -s" < ${script}`)
-    console.log('\n')
+    return shell.exec(`ssh ${host} ${envStr} "bash -s" < ${script}`)
   }
 
   allWorkers() {
@@ -52,4 +52,4 @@ class BaseForever {
   }
 }
 
-module.exports = BaseForever
+module.exports = BaseNoup 

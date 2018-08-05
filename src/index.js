@@ -1,5 +1,5 @@
-const Forever = require('./forever')
+const Noup = require('./noup')
 
 module.exports = {
-  Forever,
+  Noup,
 }
