@@ -22,8 +22,8 @@ class BaseForever {
     this.STATUS_SCRIPT = path.join(__dirname, '../scripts/status.sh')
     this.LOGS_SCRIPT = path.join(__dirname, '../scripts/logs.sh')
   }
-
-  runScriptInServer(host, script, env = {}) {
+  
+  runScriptInServer({ host, script, env = {} }) {
     console.log(`✓ Host ${host}`)
     const envStr = Object.keys(env).reduce((r, n) => {
       r += `${n}="${env[n]}" `

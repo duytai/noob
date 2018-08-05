@@ -7,23 +7,22 @@ describe('# Tool', () => {
     shell.cd(envPath)
   })
 
+  it('# status', () => {
+    shell.exec('node ../../index.js status')
+    shell.exec('node ../../index.js status one')
+  })
   return
-  it('logs', () => {
+  it('# logs', () => {
     shell.exec('node ../../index.js logs one')
     shell.exec('node ../../index.js logs one 1')
   })
 
-  it('status', () => {
-    shell.exec('node ../../index.js status')
-    shell.exec('node ../../index.js status one')
-  })
-
-  it('start', () => {
+  it('# start', () => {
     shell.exec('node ../../index.js start')
     shell.exec('node ../../index.js start one')
   })
 
-  it('stop', () => {
+  it('# stop', () => {
     shell.exec('node ../../index.js stop')
     shell.exec('node ../../index.js stop one')
   })  

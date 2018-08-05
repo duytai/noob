@@ -7,9 +7,13 @@ class Forever extends BaseForever {
   logs(name, pid) {
     const { name: appName } = this.getApp() 
     const { host } = this.workerByName(name)
-    this.runScriptInServer(host, this.LOGS_SCRIPT, {
-      APP_NAME: appName,
-      APP_PID: pid,
+    this.runScriptInServer({
+      host,
+      script: this.LOGS_SCRIPT,
+      env: {
+        APP_NAME: appName,
+        APP_PID: pid,
+      },
     })
   }
 
@@ -19,18 +23,26 @@ class Forever extends BaseForever {
       case 'all': {
         const workers = this.allWorkers()
         workers.forEach(({ host, instances }) => {
-          this.runScriptInServer(host, this.STATUS_SCRIPT, {
-            APP_NAME: appName,
-            INSTANCES: instances,
+          this.runScriptInServer({
+            host,
+            script: this.STATUS_SCRIPT,
+            env: {
+              APP_NAME: appName,
+              INSTANCES: instances,
+            },
           })
         })
         break
       }
       default: {
         const { host, instances } = this.workerByName(name)
-        this.runScriptInServer(host, this.STATUS_SCRIPT, {
-          APP_NAME: appName,
-          INSTANCES: instances,
+        this.runScriptInServer({
+          host,
+          script: this.STATUS_SCRIPT,
+          env: {
+            APP_NAME: appName,
+            INSTANCES: instances,
+          },
         })
       }
     }
@@ -42,18 +54,26 @@ class Forever extends BaseForever {
       case 'all': {
         const workers = this.allWorkers()
         workers.forEach(({ host, instances }) => {
-          this.runScriptInServer(host, this.START_SCRIPT, {
-            APP_NAME: appName,
-            INSTANCES: instances,
+          this.runScriptInServer({
+            host,
+            script: this.START_SCRIPT,
+            env: {
+              APP_NAME: appName,
+              INSTANCES: instances,
+            },
           })
         })
         break
       }
       default: {
         const { host, instances } = this.workerByName(name)
-        this.runScriptInServer(host, this.START_SCRIPT, {
-          APP_NAME: appName,
-          INSTANCES: instances,
+        this.runScriptInServer({
+          host,
+          script: this.START_SCRIPT,
+          env: {
+            APP_NAME: appName,
+            INSTANCES: instances,
+          },
         })
       }
     }
@@ -65,18 +85,26 @@ class Forever extends BaseForever {
       case 'all': {
         const workers = this.allWorkers()
         workers.forEach(({ host, instances }) => {
-          this.runScriptInServer(host, this.STOP_SCRIPT, {
-            APP_NAME: appName,
-            INSTANCES: instances,
+          this.runScriptInServer({
+            host,
+            script: this.STOP_SCRIPT,
+            env: {
+              APP_NAME: appName,
+              INSTANCES: instances,
+            },
           })
         })
         break
       }
       default: {
         const { host, instances } = this.workerByName(name)
-        this.runScriptInServer(host, this.STOP_SCRIPT, {
-          APP_NAME: appName,
-          INSTANCES: instances,
+        this.runScriptInServer({
+          host,
+          script: this.STOP_SCRIPT,
+          env: {
+            APP_NAME: appName,
+            INSTANCES: instances,
+          },
         })
       }
     }
@@ -107,32 +135,32 @@ class Forever extends BaseForever {
         const workers = this.allWorkers()
         workers.forEach(({ host, env = {}, instances }) => {
           shell.exec(`scp ${appTarPath} ${host}:~`)
-          this.runScriptInServer(
+          this.runScriptInServer({
             host,
-            this.DEPLOY_SCRIPT,
-            {
+            scrip: this.DEPLOY_SCRIPT,
+            env: {
               ...Object.assign({}, appEnv, env),
               TAR_FILE: `${appName}.tar.gz`,
               APP_NAME: appName,
               INSTANCES: instances,
             },
-          )
+          })
         })
         break
       }
       default: {
         const { host, instances, env } = this.workerByName(name)
         shell.exec(`scp ${appTarPath} ${host}:~`)
-        this.runScriptInServer(
+        this.runScriptInServer({
           host,
-          this.DEPLOY_SCRIPT,
-          {
+          scrip: this.DEPLOY_SCRIPT,
+          env: {
             ...Object.assign({}, appEnv, env),
             TAR_FILE: `${appName}.tar.gz`,
             APP_NAME: appName,
             INSTANCES: instances,
           },
-        )
+        })
       }
     }
     shell.exec(`rm -rf ${copyOfAppPath}`)
@@ -144,13 +172,19 @@ class Forever extends BaseForever {
       case 'all': {
         const workers = this.allWorkers()
         workers.forEach(({ host }) => {
-          this.runScriptInServer(host, this.SETUP_SCRIPT)
+          this.runScriptInServer({
+            host,
+            script: this.SETUP_SCRIPT,
+          })
         })
         break
       }
       default: {
         const { host } = this.workerByName(name)
-        this.runScriptInServer(host, this.SETUP_SCRIPT)
+        this.runScriptInServer({
+          host,
+          script: this.SETUP_SCRIPT,
+        })
       }
     }
   }
