@@ -10,7 +10,7 @@ export LC_ALL=C
 NVM_ENV_FILE="$HOME/.nvm/nvm.sh"
 if [ ! -f $NVM_ENV_FILE ] ; then
   echo "✓ install NVM"
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+  run_with_logs "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash"
 fi
 source $NVM_ENV_FILE 
 echo "✓ nvm $(nvm --version)"
@@ -27,7 +27,7 @@ echo "✓ node $(node --version)"
 HAS_PM2=$(command -v pm2)
 if [ -z $HAS_PM2 ] ; then
   echo "✓ install PM2"
-  npm i -g pm2
+  run_with_logs "npm i -g pm2"
 fi
 echo "✓ pm2 $(pm2 --version)"
 

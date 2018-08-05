@@ -13,6 +13,6 @@ if [ ! -z $NODE_VERSION ] ; then
   run_with_logs "nvm use $NODE_VERSION"
 fi 
 
-pm2 start $APP_NAME
+run_with_logs "pm2 start $APP_NAME"
 echo "✓ start $INSTANCES instances"
 echo "✓ complete"

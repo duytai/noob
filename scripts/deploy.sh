@@ -32,5 +32,5 @@ if [ -z $APP_ENTRY ] ; then
   echo "🐛 Must define 'main' in package.json"
 fi
 run_with_logs "pm2 delete $APP_NAME"
-pm2 start $APP_ENTRY --instances=$INSTANCES --name=${APP_NAME}
+run_with_logs "pm2 start $APP_ENTRY --instances=$INSTANCES --name=${APP_NAME}"
 echo "✓ $INSTANCES instances started"
