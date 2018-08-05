@@ -49,6 +49,8 @@ it will create `noup.json` file in your project folder
 - `instances`: numbers of processes of your deployed project
 - `path`: absolute path or `git url`. Notice: noup will deploy your latest commits not code in that directory
 
+The project entry is `main` field of your `package.json`
+
 ### Commom steps
 
 ```bash
@@ -62,4 +64,11 @@ noup start
 noup stop
 # more details
 noup --help
+```
+
+### Debug
+
+Set `VERBOSE` flag to true to see full logs. For example
+```bash
+VERBOSE=true noup setup
 ```
