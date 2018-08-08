@@ -144,8 +144,6 @@ class Noup extends BaseNoup {
     this.runCommand(`cd ${copyOfAppPath}`)
     this.runCommand(`git checkout ${appCommit}`)
     this.runCommand(`cd ${pwd}`)
-    console.log(appCommit)
-    process.exit()
     this.runCommand(`rm -rf ${copyOfAppGitPath}`)
     this.runCommand(`tar -zcvf ${appTarPath} ${appName}`)
     switch (name) {
