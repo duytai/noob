@@ -53,6 +53,7 @@ class Noup extends BaseNoup {
 
   start(name) {
     const { name: appName } = this.getApp() 
+    const appEnv = this.getEnv()
     switch (name) {
       case 'all': {
         const workers = this.allWorkers()
@@ -61,6 +62,7 @@ class Noup extends BaseNoup {
             host,
             script: this.START_SCRIPT,
             env: {
+              ...Object.assign({}, appEnv, env),
               APP_NAME: appName,
               INSTANCES: instances,
               NODE_VERSION: this.getNodeVersion(),
@@ -75,6 +77,7 @@ class Noup extends BaseNoup {
           host,
           script: this.START_SCRIPT,
           env: {
+            ...Object.assign({}, appEnv, env),
             APP_NAME: appName,
             INSTANCES: instances,
             NODE_VERSION: this.getNodeVersion(),
@@ -119,7 +122,6 @@ class Noup extends BaseNoup {
 
   deploy(name) {
     const app = this.getApp()
-    const appEnv = this.getEnv()
     const { name: appName, path: appPath, commit: appCommit } = app
     const appGitPath = path.join(appPath, '.git')
     if (!fs.existsSync(appPath)) {
@@ -155,7 +157,6 @@ class Noup extends BaseNoup {
             host,
             script: this.DEPLOY_SCRIPT,
             env: {
-              ...Object.assign({}, appEnv, env),
               TAR_FILE: `${appName}.tar.gz`,
               APP_NAME: appName,
               INSTANCES: instances,
@@ -172,7 +173,6 @@ class Noup extends BaseNoup {
           host,
           script: this.DEPLOY_SCRIPT,
           env: {
-            ...Object.assign({}, appEnv, env),
             TAR_FILE: `${appName}.tar.gz`,
             APP_NAME: appName,
             INSTANCES: instances,
