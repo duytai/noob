@@ -5,7 +5,6 @@ run_with_logs() {
     eval "$1 &> /dev/null"
   fi
 }
-
 export LC_ALL=C
 NVM_ENV_FILE="$HOME/.nvm/nvm.sh"
 source $NVM_ENV_FILE

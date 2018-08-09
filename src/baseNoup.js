@@ -6,6 +6,7 @@ const shell = require('shelljs')
 const path = require('path')
 const fs = require('fs')
 const Q = require('q')
+const { isObject } = require('underscore')
 require('colors')
 
 const { VERBOSE = false } = process.env
@@ -39,10 +40,15 @@ class BaseNoup {
     console.log(`✓ Host ${host}`)
     env.VERBOSE = VERBOSE
     const envStr = Object.keys(env).reduce((r, n) => {
-      r += `${n}="${env[n]}" `
+      if (isObject(env[n])) {
+        const value = JSON.stringify(env[n]).replace(/"/g, '\\\\\\"')
+        r += `${n}="${value}" `
+      } else {
+        r += `${n}="${env[n]}" `
+      }
       return r
     }, '')
-    return shell.exec(`ssh ${host} ${envStr} "bash -s" < ${script}`)
+    return shell.exec(`ssh ${host} ${envStr} bash -s < ${script}`)
   }
 
   allWorkers() {

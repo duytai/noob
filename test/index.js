@@ -6,10 +6,10 @@ describe('# Tool', () => {
     const envPath = path.join(__dirname, './env')
     shell.cd(envPath)
   })
-  //it('# deploy', () => {
-    //shell.exec('node ../../index.js deploy')
-    ////shell.exec('node ../../index.js deploy one')
-  //})
+  it('# deploy', () => {
+    shell.exec('node ../../index.js deploy')
+    //shell.exec('node ../../index.js deploy one')
+  })
   
   //it('# init', () => {
     //shell.exec('node ../../index.js init')
@@ -30,10 +30,10 @@ describe('# Tool', () => {
     //shell.exec('node ../../index.js logs one 1')
   //})
 
-  it('# start', () => {
-    shell.exec('node ../../index.js start')
-    //shell.exec('node ../../index.js start one')
-  })
+  //it('# start', () => {
+    //shell.exec('node ../../index.js start')
+    ////shell.exec('node ../../index.js start one')
+  //})
 
   //it('# stop', () => {
     //shell.exec('node ../../index.js stop')
