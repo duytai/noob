@@ -1,4 +1,5 @@
 const fs = require('fs')
+const { merge } = require('lodash')
 const path = require('path')
 const shell = require('shelljs')
 const BaseNoup = require('./baseNoup')
@@ -189,10 +190,12 @@ class Noup extends BaseNoup {
   }
 
   setup(name) {
+    const appScripts = this.getAppScript()
     switch (name) {
       case 'all': {
         const workers = this.allWorkers()
-        workers.forEach(({ host }) => {
+        workers.forEach(({ host, scripts = []}) => {
+          const customSetupScript = appScripts.concat(scripts).join(' && ')
           this.runScriptInServer({
             host,
             script: this.SETUP_SCRIPT,
@@ -200,11 +203,13 @@ class Noup extends BaseNoup {
               NODE_VERSION: this.getNodeVersion(),
             }
           })
+          this.runInlineScriptInServer({ host, script: customSetupScript })
         })
         break
       }
       default: {
-        const { host } = this.workerByName(name)
+        const { host, scripts } = this.workerByName(name)
+        const customSetupScript = merge(appScripts, scripts).setup.join('\n')
         this.runScriptInServer({
           host,
           script: this.SETUP_SCRIPT,
@@ -212,6 +217,7 @@ class Noup extends BaseNoup {
             NODE_VERSION: this.getNodeVersion(),
           }
         })
+        this.runInlineScriptInServer({ host, script: customSetupScript })
       }
     }
   }

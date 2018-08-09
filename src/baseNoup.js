@@ -6,7 +6,7 @@ const shell = require('shelljs')
 const path = require('path')
 const fs = require('fs')
 const Q = require('q')
-const { isObject } = require('underscore')
+const { isObject } = require('lodash')
 require('colors')
 
 const { VERBOSE = false } = process.env
@@ -23,6 +23,7 @@ class BaseNoup {
     this.app = config.app
     this.env = config.env || {}
     this.node = config.node || ''
+    this.scripts = config.scripts || []
     this.SETUP_SCRIPT = path.join(__dirname, '../scripts/setup.sh')
     this.DEPLOY_SCRIPT = path.join(__dirname, '../scripts/deploy.sh')
     this.STOP_SCRIPT = path.join(__dirname, '../scripts/stop.sh')
@@ -36,7 +37,11 @@ class BaseNoup {
     shell.exec(`${command} ${extraCmd}`)
   }
 
-  runScriptInServer({ host, script, env = {}, async = false }) {
+  runInlineScriptInServer({ host, script }) {
+    return shell.exec(`ssh ${host} "${script}"`)
+  }
+
+  runScriptInServer({ host, script, env = {} }) {
     console.log(`✓ Host ${host}`)
     env.VERBOSE = VERBOSE
     const envStr = Object.keys(env).reduce((r, n) => {
@@ -48,6 +53,7 @@ class BaseNoup {
       }
       return r
     }, '')
+    console.log(envStr)
     return shell.exec(`ssh ${host} ${envStr} bash -s < ${script}`)
   }
 
@@ -70,6 +76,10 @@ class BaseNoup {
 
   getApp() {
     return this.app
+  }
+  
+  getAppScript() {
+    return this.scripts
   }
 
   getNodeVersion() {
