@@ -19,7 +19,7 @@ rm $TAR_FILE
 source $NVM_ENV_FILE
 if [ ! -z $NODE_VERSION ] ; then
   run_with_logs "nvm use $NODE_VERSION"
-fi 
+fi
 cd $APP_DIR
 echo "✓ install dependencies"
 run_with_logs "npm install"

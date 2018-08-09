@@ -5,7 +5,7 @@ const BaseNoup = require('./baseNoup')
 
 class Noup extends BaseNoup {
   logs(name, pid) {
-    const { name: appName } = this.getApp() 
+    const { name: appName } = this.getApp()
     const { host } = this.workerByName(name)
     this.runScriptInServer({
       host,
@@ -19,7 +19,7 @@ class Noup extends BaseNoup {
   }
 
   status(name) {
-    const { name: appName } = this.getApp() 
+    const { name: appName } = this.getApp()
     switch (name) {
       case 'all': {
         const workers = this.allWorkers()
@@ -52,8 +52,7 @@ class Noup extends BaseNoup {
   }
 
   start(name) {
-    const { name: appName } = this.getApp() 
-    const appEnv = this.getEnv()
+    const { name: appName } = this.getApp()
     switch (name) {
       case 'all': {
         const workers = this.allWorkers()
@@ -62,7 +61,6 @@ class Noup extends BaseNoup {
             host,
             script: this.START_SCRIPT,
             env: {
-              ...Object.assign({}, appEnv, env),
               APP_NAME: appName,
               INSTANCES: instances,
               NODE_VERSION: this.getNodeVersion(),
@@ -77,7 +75,6 @@ class Noup extends BaseNoup {
           host,
           script: this.START_SCRIPT,
           env: {
-            ...Object.assign({}, appEnv, env),
             APP_NAME: appName,
             INSTANCES: instances,
             NODE_VERSION: this.getNodeVersion(),
@@ -88,7 +85,7 @@ class Noup extends BaseNoup {
   }
 
   stop(name) {
-    const { name: appName } = this.getApp() 
+    const { name: appName } = this.getApp()
     switch (name) {
       case 'all': {
         const workers = this.allWorkers()
@@ -140,7 +137,7 @@ class Noup extends BaseNoup {
       this.runCommand(`rm -rf ${appTarPath}`)
     }
     if (fs.existsSync(copyOfAppPath)) {
-      this.runCommand(`rm -rf ${copyOfAppPath}`) 
+      this.runCommand(`rm -rf ${copyOfAppPath}`)
     }
     this.runCommand(`git clone ${appPath} ${copyOfAppPath}`)
     this.runCommand(`cd ${copyOfAppPath}`)
@@ -151,7 +148,7 @@ class Noup extends BaseNoup {
     switch (name) {
       case 'all': {
         const workers = this.allWorkers()
-        workers.forEach(({ host, env = {}, instances }) => {
+        workers.forEach(({ host, instances }) => {
           this.runCommand(`scp ${appTarPath} ${host}:~`)
           this.runScriptInServer({
             host,
@@ -167,7 +164,7 @@ class Noup extends BaseNoup {
         break
       }
       default: {
-        const { host, instances, env } = this.workerByName(name)
+        const { host, instances } = this.workerByName(name)
         this.runCommand(`scp ${appTarPath} ${host}:~`)
         this.runScriptInServer({
           host,
@@ -214,4 +211,4 @@ class Noup extends BaseNoup {
   }
 }
 
-module.exports = Noup 
+module.exports = Noup

@@ -1,20 +1,20 @@
 {
   "workers": {
     "one": {
-      "host": "<username>@<ip>",
-      "instances": 2,
+      "host": "taind@35.229.220.31",
+      "instances": 1,
       "env": {
-        "MONGO_URL": ""
+        "SETTINGS": {
+          "PORT": 3000
+        }
       }
     }
   },
   "app": {
-    "name": "bot",
-    "path": "/Users/macbookpro/Tests/worker",
-    "commit": "35d35e06a6a32bb6a157ed0342b7858691527cf"
+    "name": "pub",
+    "path": "/Users/macbookpro/Tests/env-test"
   },
   "env": {
-    "REDIS_URL": ""
   },
   "node": "v10.5.0"
 }

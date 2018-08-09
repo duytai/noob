@@ -1,4 +1,4 @@
-/* 
+/*
  * all commands require noup.json file
  * this class verify and parse
  */
@@ -6,7 +6,6 @@ const shell = require('shelljs')
 const path = require('path')
 const fs = require('fs')
 const Q = require('q')
-const { isObject } = require('underscore')
 require('colors')
 
 const { VERBOSE = false } = process.env
@@ -17,7 +16,7 @@ class BaseNoup {
     if (!fs.existsSync(configPath)) {
       console.log('🐛 No noup.json file'.red)
       process.exit()
-    } 
+    }
     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
     this.workers = config.workers
     this.app = config.app
@@ -40,11 +39,7 @@ class BaseNoup {
     console.log(`✓ Host ${host}`)
     env.VERBOSE = VERBOSE
     const envStr = Object.keys(env).reduce((r, n) => {
-      if (isObject(env[n])) {
-        r += `${n}="${JSON.stringify(env[n])}" `
-      } else {
-        r += `${n}="${env[n]}" `
-      }
+      r += `${n}="${env[n]}" `
       return r
     }, '')
     return shell.exec(`ssh ${host} ${envStr} "bash -s" < ${script}`)
@@ -68,7 +63,7 @@ class BaseNoup {
   }
 
   getApp() {
-    return this.app 
+    return this.app
   }
 
   getNodeVersion() {
@@ -76,4 +71,4 @@ class BaseNoup {
   }
 }
 
-module.exports = BaseNoup 
+module.exports = BaseNoup
