@@ -53,7 +53,6 @@ class BaseNoup {
       }
       return r
     }, '')
-    console.log(envStr)
     return shell.exec(`ssh ${host} ${envStr} bash -s < ${script}`)
   }
 
